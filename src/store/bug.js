@@ -16,7 +16,7 @@ const slice = createSlice({
       const index = bugs.findIndex((bug) => bug.id === action.payload.id);
       bugs[index].resolved = true;
     },
-  },
+  }
 });
 
 export const { bugAdded, bugResolved } = slice.actions;
