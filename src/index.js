@@ -13,3 +13,5 @@ store.dispatch( bugActions.bugAdded({discription:"Bug 2 is added "}));
 store.dispatch( bugActions.bugAdded({discription:"Bug 3 is added "})); 
 store.dispatch(bugActions.bugResolved({id:2}));
 console.log(store.getState())
+
+console.log(bugActions.getUnresolvedBugs(store.getState()));
