@@ -3,6 +3,7 @@ import * as bugActions from './store/bug'
 import  * as projectActions from './store/project';
 
 const store = configureStore();
+store.dispatch(bugActions.getProductList());
 //First action 
 store.dispatch(projectActions.projectAdd({title:"Water Mgm system", date: "23-3-2021"}))
  
