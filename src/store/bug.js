@@ -6,7 +6,7 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     bugRecived:(bugs,action)=>{
-      bugs.push(action.payload.data);
+      bugs.push(action.payload);
     },
     bugAdded: (bugs, action) => {
       bugs.push({
@@ -20,20 +20,24 @@ const slice = createSlice({
       bugs[index].resolved = true;
     },
     errorOnGet:(bugs, action)=>{
-      alert(action.payload.payload.message);
-    }
+      console.log("Error Occured: ",action.payload);
+      alert(action.payload);
+    },
   }
 });
 
 export const { bugAdded, bugResolved, bugRecived,errorOnGet} = slice.actions;
 export default slice.reducer;
 
+const URL="https://prodbysaif.herokuapp.com/api/products";
+
 // Action Creators
 export const getProductList=() => (dispatch) =>{
   return dispatch({type: "apiCallStarted" , payload: {
-    url: "https://prodbysaif.herokuapp.com/api/products",
-    onError: "errorOnGet",
-    onSucess: "bugRecived"
+    url: URL,
+    method: "get",
+    onSucess: bugRecived.type,
+    onErr: errorOnGet.type
 }})
 };
 

@@ -4,16 +4,15 @@ import * as bugActions from '../store/bug';
 const api= ({dispatch}) => next => async action => {
     if(action.type != "apiCallStarted") return next(action);
     next(action);
-    const {url,method,data,onSucess,onError}= action.payload;
+    const {url,method,onSucess,onErr}= action.payload;
     try{
      const response= await  axios.request({
             url,
-            method,
-            data
+            method
         });
-        dispatch( bugActions[onSucess]({data:response.data}));
+        if (onSucess) dispatch({ type: onSucess, payload: response.data });
     } catch(error){
-       dispatch( bugActions[onError]({payload:error}));
+        if (onErr) dispatch({ type: onErr, payload: error.message});
     }
 }
 
